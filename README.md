@@ -7,55 +7,86 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Clasificador por Edad - Laravel 🧠👶🧓
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este es un sistema web desarrollado con Laravel y MySQL que permite clasificar a los usuarios según su edad antes de registrarse o autenticarse. Redirige automáticamente a distintas secciones del sitio según el grupo etario, mediante un middleware personalizado y seguro.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🚀 Requisitos Previos
 
-## Learning Laravel
+- PHP >= 8.1
+- Composer
+- MySQL
+- Node.js y npm
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🛠️ Instalación Paso a Paso
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Clonar el repositorio o descomprimir el proyecto
+```bash
+cd /ruta/del/proyecto
+```
 
-## Laravel Sponsors
+### 2. Instalar dependencias PHP y JS
+```bash
+composer install
+npm install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 3. Crear archivo `.env`
+```bash
+cp .env.example .env
+```
 
-### Premium Partners
+Configura en `.env` tu conexión a MySQL:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=clasificador
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 4. Generar clave de aplicación
+```bash
+php artisan key:generate
+```
 
-## Contributing
+### 5. Migrar la base de datos
+```bash
+php artisan migrate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Si da error con SQLite, asegúrate de que esté configurado correctamente el `.env` con MySQL como se indica arriba.
 
-## Code of Conduct
+### 6. Ejecutar servidores
+```bash
+php artisan serve
+npm run dev
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Accede en tu navegador a: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🧩 Estructura Clave
 
-## License
+- `EdadMiddleware.php`: valida, guarda y redirige según edad
+- `AgeRouterService.php`: centraliza las rutas por grupo etario
+- Controladores: uno por grupo de edad (`BebesController`, `AdultosController`, etc.)
+- Vistas personalizadas para cada grupo: `resources/views/grupos/*.blade.php`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 📝 Notas
+
+- Si ves errores de `{{ $mensaje }}`, asegúrate de que el archivo Blade no tenga slashes mal colocados ni conflictos con sintaxis PHP.
+- Puedes acceder a `/admin/edades` si implementas la vista para visualizar los registros.
+- Middleware seguro, modular y extensible con principios SOLID.
+
+---
+
+Desarrollado por el equipo de Software Seguro de la ESPE 💻🔒
